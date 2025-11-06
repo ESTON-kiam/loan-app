@@ -15,7 +15,7 @@ class UserModel {
     required this.createdAt,
   });
 
-  factory UserModel.fromJson(Map json) {
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'] ?? '',
       fullName: json['fullName'] ?? '',
@@ -26,7 +26,7 @@ class UserModel {
     );
   }
 
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'fullName': fullName,

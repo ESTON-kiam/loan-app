@@ -18,7 +18,7 @@ class LoanModel {
     required this.userId,
     required this.amount,
     required this.durationMonths,
-    this.interestRate = 15.0, // 15% annual interest
+    this.interestRate = 15.0,
     required this.purpose,
     this.status = LoanStatus.pending,
     required this.appliedAt,
@@ -27,7 +27,7 @@ class LoanModel {
     required this.monthlyInstallment,
   });
 
-  factory LoanModel.fromJson(Map json) {
+  factory LoanModel.fromJson(Map<String, dynamic> json) {
     return LoanModel(
       id: json['id'] ?? '',
       userId: json['userId'] ?? '',
@@ -46,8 +46,8 @@ class LoanModel {
     );
   }
 
-  Map toJson() {
-    return {
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
       'id': id,
       'userId': userId,
       'amount': amount,

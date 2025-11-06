@@ -13,35 +13,22 @@ dependencies:
   # State Management
   provider: ^6.1.1
   
-  # Firebase
+  # Firebase - DOWNGRADED FOR WEB COMPATIBILITY
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.3
   cloud_firestore: ^4.13.6
-  firebase_storage: ^11.5.6
-  firebase_messaging: ^14.7.9
   
   # UI & Icons
   cupertino_icons: ^1.0.6
   google_fonts: ^6.1.0
-  flutter_svg: ^2.0.9
   
   # Utilities
   intl: ^0.18.1
   shared_preferences: ^2.2.2
-  image_picker: ^1.0.7
-  file_picker: ^6.1.1
   uuid: ^4.3.3
   
-  # HTTP & Payments
+  # HTTP
   http: ^1.2.0
-  
-  # UI Components
-  flutter_spinkit: ^5.2.0
-  fluttertoast: ^8.2.4
-  shimmer: ^3.0.0
-  
-  # Local Notifications
-  flutter_local_notifications: ^16.3.0
 
 dev_dependencies:
   flutter_test:
@@ -50,8 +37,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  
-  # Uncomment when you add assets
-  # assets:
-  #   - assets/images/
-  #   - assets/icons/

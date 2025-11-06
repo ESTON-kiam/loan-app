@@ -6,11 +6,11 @@ class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Loan Operations
-  Future createLoan(LoanModel loan) async {
+  Future<void> createLoan(LoanModel loan) async {
     await _firestore.collection('loans').doc(loan.id).set(loan.toJson());
   }
 
-  Future<List> getUserLoans(String userId) async {
+  Future<List<LoanModel>> getUserLoans(String userId) async {
     QuerySnapshot snapshot = await _firestore
         .collection('loans')
         .where('userId', isEqualTo: userId)
@@ -18,35 +18,35 @@ class FirestoreService {
         .get();
 
     return snapshot.docs
-        .map((doc) => LoanModel.fromJson(doc.data() as Map))
+        .map((doc) => LoanModel.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
   }
 
-  Future getLoanById(String loanId) async {
+  Future<LoanModel?> getLoanById(String loanId) async {
     DocumentSnapshot doc = await _firestore.collection('loans').doc(loanId).get();
     if (doc.exists) {
-      return LoanModel.fromJson(doc.data() as Map);
+      return LoanModel.fromJson(doc.data() as Map<String, dynamic>);
     }
     return null;
   }
 
-  Stream<List> getUserLoansStream(String userId) {
+  Stream<List<LoanModel>> getUserLoansStream(String userId) {
     return _firestore
         .collection('loans')
         .where('userId', isEqualTo: userId)
         .orderBy('appliedAt', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs
-            .map((doc) => LoanModel.fromJson(doc.data()))
+            .map((doc) => LoanModel.fromJson(doc.data() as Map<String, dynamic>))
             .toList());
   }
 
   // Payment Operations
-  Future createPayment(PaymentModel payment) async {
+  Future<void> createPayment(PaymentModel payment) async {
     await _firestore.collection('payments').doc(payment.id).set(payment.toJson());
   }
 
-  Future<List> getLoanPayments(String loanId) async {
+  Future<List<PaymentModel>> getLoanPayments(String loanId) async {
     QuerySnapshot snapshot = await _firestore
         .collection('payments')
         .where('loanId', isEqualTo: loanId)
@@ -54,11 +54,11 @@ class FirestoreService {
         .get();
 
     return snapshot.docs
-        .map((doc) => PaymentModel.fromJson(doc.data() as Map))
+        .map((doc) => PaymentModel.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
   }
 
-  Future<List> getUserPayments(String userId) async {
+  Future<List<PaymentModel>> getUserPayments(String userId) async {
     QuerySnapshot snapshot = await _firestore
         .collection('payments')
         .where('userId', isEqualTo: userId)
@@ -66,7 +66,7 @@ class FirestoreService {
         .get();
 
     return snapshot.docs
-        .map((doc) => PaymentModel.fromJson(doc.data() as Map))
+        .map((doc) => PaymentModel.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
   }
 }

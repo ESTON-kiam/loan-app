@@ -21,7 +21,7 @@ class PaymentModel {
     this.transactionId,
   });
 
-  factory PaymentModel.fromJson(Map json) {
+  factory PaymentModel.fromJson(Map<String, dynamic> json) {
     return PaymentModel(
       id: json['id'] ?? '',
       loanId: json['loanId'] ?? '',
@@ -37,8 +37,8 @@ class PaymentModel {
     );
   }
 
-  Map toJson() {
-    return {
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
       'id': id,
       'loanId': loanId,
       'userId': userId,

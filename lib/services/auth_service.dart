@@ -8,10 +8,10 @@ class AuthService {
 
   User? get currentUser => _auth.currentUser;
 
-  Stream get authStateChanges => _auth.authStateChanges();
+  Stream<User?> get authStateChanges => _auth.authStateChanges();
 
   // Register
-  Future register({
+  Future<UserModel?> register({
     required String email,
     required String password,
     required String fullName,
@@ -39,7 +39,7 @@ class AuthService {
   }
 
   // Login
-  Future login(String email, String password) async {
+  Future<UserModel?> login(String email, String password) async {
     try {
       UserCredential credential = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -47,19 +47,19 @@ class AuthService {
       );
 
       DocumentSnapshot doc = await _firestore.collection('users').doc(credential.user!.uid).get();
-      return UserModel.fromJson(doc.data() as Map);
+      return UserModel.fromJson(doc.data() as Map<String, dynamic>);
     } catch (e) {
       throw Exception('Login failed: ${e.toString()}');
     }
   }
 
   // Logout
-  Future logout() async {
+  Future<void> logout() async {
     await _auth.signOut();
   }
 
   // Reset Password
-  Future resetPassword(String email) async {
+  Future<void> resetPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
@@ -68,11 +68,11 @@ class AuthService {
   }
 
   // Get User Data
-  Future getUserData(String uid) async {
+  Future<UserModel?> getUserData(String uid) async {
     try {
       DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
       if (doc.exists) {
-        return UserModel.fromJson(doc.data() as Map);
+        return UserModel.fromJson(doc.data() as Map<String, dynamic>);
       }
       return null;
     } catch (e) {
